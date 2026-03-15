@@ -1,79 +1,55 @@
-# Azure-Cloud-SOC (Live Traffic & HoneyNet)
-
-![Cloud Honeynet / SOC](https://i.imgur.com/ZWxe03e.jpg)
+# Remote Code Execution Suspected in Splunk Enterprise
 
 ## Introduction
 
-In this project, I build a mini honeynet in Azure and ingest log sources from various resources such as SQL Server, Network Security Groups and firewall logs (and more), which is then used by Microsoft Sentinel to build attack maps, trigger alerts, and create incidents. I measured some critical security metrics in the insecure environment for 24 hours, apply some security controls to harden the environment, measured metrics for another 24 hours, then show the results below. The metrics we will show are:
+In this Incident Response Scenario it appears that someone made a call to a very supicious URL: http://18.219.80.54:8000/en-US/splunkd/__upload/indexing/preview?output_mode=json&props.NO_BINARY_CHECK=1&input.path=shell.xsl
 
-- SecurityEvent (Windows Event Logs)
-- Syslog (Linux Event Logs)
-- SecurityAlert (Log Analytics Alerts Triggered)
-- SecurityIncident (Incidents created by Sentinel)
-- AzureNetworkAnalytics_CL (Malicious Flows allowed into our honeynet)
 
-## Architecture Before Hardening / Security Controls
-![Architecture Diagram](https://i.imgur.com/aBDwnKb.jpg)
+## Body 
+When examining the traffic fro the Source IP to the Destination IP there is one observable network interaction 
 
-## Architecture After Hardening / Security Controls
-![Architecture Diagram](https://i.imgur.com/YQNa9Pp.jpg)
+http://18.219.80.54:8000/en-US/splunkd/__upload/indexing/preview?output_mode=json&props.NO_BINARY_CHECK=1&input.path=shell.xsl
 
-The architecture of the mini honeynet in Azure consists of the following components:
 
-- Virtual Network (VNet)
-- Network Security Group (NSG)
-- Virtual Machines (2 windows, 1 linux)
-- Log Analytics Workspace
-- Azure Key Vault
-- Azure Storage Account
-- Microsoft Sentinel
 
-For the "BEFORE" metrics, all resources were originally deployed, exposed to the internet. The Virtual Machines had both their Network Security Groups and built-in firewalls wide open, and all other resources are deployed with public endpoints visible to the Internet; aka, no use for Private Endpoints.
 
-For the "AFTER" metrics, Network Security Groups were hardened by blocking ALL traffic with the exception of my admin workstation, and all other resources were protected by their built-in firewalls as well as Private Endpoint
 
-## Attack Maps Before Hardening / Security Controls
-![NSG Allowed Inbound Malicious Flows] 
-<img width="1440" alt="nsgattackmapbefore" src="https://github.com/user-attachments/assets/7a3ebdf5-d425-42ec-b1aa-41beb382dc92"> <br>
+When searching the Source IP address on Virus Total this is what we find: 
 
-![Linux Syslog Auth Failures] <img width="1440" alt="linuxattackmapbefore" src="https://github.com/user-attachments/assets/3bc788b4-3f44-445b-b49e-d2d7d25b6b7a"><br>
+This IP address is a Chinese IP address associate with Phishing attacks:
 
-![Windows RDP/SMB Auth Failures] <img width="1440" alt="windowsattackmapbefore" src="https://github.com/user-attachments/assets/82b3f951-8b1d-4f9a-b113-8dd414301fc1"><br>
 
-## Metrics Before Hardening / Security Controls
 
-The following table shows the metrics we measured in our insecure environment for 24 hours:
-Start Time Dec 5 2024 8:35 AM
-Stop Time Dec 6 2024 8:35 AM
+Shell.sh, Shell.xsl and shell.zip are all common files used by this IP: 
 
-| Metric                   | Count
-| ------------------------ | -----
-| SecurityEvent            | 25990
-| Syslog                   | 21322
-| SecurityAlert            | 0
-| SecurityIncident         | 341
-| AzureNetworkAnalytics_CL | 2714
 
-## Attack Maps Before Hardening / Security Controls
 
-```All map queries actually returned no results due to no instances of malicious activity for the 24 hour period after hardening.```
+Let’s Check out the Splunk Enterprise Server to see the scope of the Damage by this malicious URL request
 
-## Metrics After Hardening / Security Controls
 
-The following table shows the metrics we measured in our environment for another 24 hours, but after we have applied security controls:
-Start Time Dec 8 2024 5:23 AM
-Stop Time	Dec 9 2024 5:23 AM
 
-| Metric                   | Count
-| ------------------------ | -----
-| SecurityEvent            | 889
-| Syslog                   | 4
-| SecurityAlert            | 0
-| SecurityIncident         | 0
-| AzureNetworkAnalytics_CL | 0
+I downloaded the malicious file to my computer and grabbed the Sha256 Hash… 
+
+
+Let’s see what VirusTotal says about this Hash…
+To my surprise… this file hash is clean: 
+
+
+BACK TO THE PROCCESES… CHECK OUT THIS SUSPICIOUS PATTERN I FOUND AFTER DOING SOME RESEARCH
+
+
+1. Adding a new user to the Splunk Server is not suspicious in and of itself
+
+2. 2. pam_tally2 --user analyst --reset --quiet
+
+This command is used to set the login failed attempts of the user “analyst” to 0… It also designates it to run in —“quiet” mode… This causes no output to appear on the computer screen and it turns off logging for this event of resetting the failed login attempts for the “analyst” user.
+
+WAIT… WHY WOULD AN ACCOUNT THAT WAS JUST CREATED NEED TO HAVE IT’S FAILED PASSWORD COUNTER RESET TO 0?
+
+It’s super suspicious and after doing some research it’s a common pattern for attackers to be able to bypass authentication…
+
+3. 3. The Admin account sets a password for the Newly added user “analyst” 
 
 ## Conclusion
 
-In this project, a mini honeynet was constructed in Microsoft Azure and log sources were integrated into a Log Analytics workspace. Microsoft Sentinel was employed to trigger alerts and create incidents based on the ingested logs. Additionally, metrics were measured in the insecure environment before security controls were applied, and then again after implementing security measures. It is noteworthy that the number of security events and incidents were drastically reduced after the security controls were applied, demonstrating their effectiveness.
-
-It is worth noting that if the resources within the network were heavily utilized by regular users, it is likely that more security events and alerts may have been generated within the 24-hour period following the implementation of the security controls.
+In this Incident Response scenario it was detected that Remote Code Execution was enacted on the Splunk Enterprise Server after a shell.xsl excel file was opened. The bad actor then created a new Splunk user named "analyst" and created a password for this user in order to establish persistence. 
