@@ -38,20 +38,19 @@ xxxhttp://18.219.80.54:8000/en-US/splunkd/__upload/indexing/preview?output_mode=
 
 
 1. Adding a new user to the Splunk Server is not suspicious in and of itself
-
 2. pam_tally2 --user analyst --reset --quiet
- 
+3. The Admin account sets a password for the Newly added user “analyst” 
+
 <br><br>
-This command is used to set the login failed attempts of the user “analyst” to 0… It also designates it to run in —“quiet” mode… This causes no output to appear on the computer screen and it turns off logging for this event of resetting the failed login attempts for the “analyst” user.
+***This command is used to set the login failed attempts of the user “analyst” to 0…*** It also designates it to run in **—“quiet”** mode… This causes no output to appear on the computer screen and it turns off logging for this event of resetting the failed login attempts for the “analyst” user.
 <br>
 
-WAIT… WHY WOULD AN ACCOUNT THAT WAS JUST CREATED NEED TO HAVE IT’S FAILED PASSWORD COUNTER RESET TO 0?
+<h3>WAIT… WHY WOULD AN ACCOUNT THAT WAS JUST CREATED NEED TO HAVE IT’S FAILED PASSWORD COUNTER RESET TO 0?</h3>
 <br>
 
-It’s super suspicious and after doing some research it’s a common pattern for attackers to be able to bypass authentication…
+## It’s super suspicious and after doing some research it’s a common pattern for attackers to be able to bypass authentication…
 <br>
 
-3. 3. The Admin account sets a password for the Newly added user “analyst” 
 
 ## Conclusion
 
