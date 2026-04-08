@@ -11,7 +11,7 @@ In this Incident Response Scenario it appears that someone made a call to a very
 <br>
 
 xxxhttp://18.219.80.54:8000/en-US/splunkd/__upload/indexing/preview?output_mode=json&props.NO_BINARY_CHECK=1&input.path=shell.xslxxx
- <br>
+ <br>  <br>
 
 
 
