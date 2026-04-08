@@ -2,13 +2,13 @@
 
 ## Introduction
 
-In this Incident Response Scenario it appears that someone made a call to a very supicious URL: http://18.219.80.54:8000/en-US/splunkd/__upload/indexing/preview?output_mode=json&props.NO_BINARY_CHECK=1&input.path=shell.xsl
+In this Incident Response Scenario it appears that someone made a call to a very supicious URL: xxxhttp://18.219.80.54:8000/en-US/splunkd/__upload/indexing/preview?output_mode=json&props.NO_BINARY_CHECK=1&input.path=shell.xslxxx
 
 
 ## Body 
 When examining the traffic fro the Source IP to the Destination IP there is one observable network interaction 
 
-http://18.219.80.54:8000/en-US/splunkd/__upload/indexing/preview?output_mode=json&props.NO_BINARY_CHECK=1&input.path=shell.xsl
+xxxhttp://18.219.80.54:8000/en-US/splunkd/__upload/indexing/preview?output_mode=json&props.NO_BINARY_CHECK=1&input.path=shell.xslxxx
 
 
 
@@ -26,14 +26,14 @@ When searching the Source IP address on Virus Total this is what we find:
 
 
 
-****I downloaded the malicious file to my computer and grabbed the Sha256 Hash… ****
+***I downloaded the malicious file to my computer and grabbed the Sha256 Hash…***
 
 
 Let’s see what VirusTotal says about this Hash…
 To my surprise… this file hash is clean: 
 
 
-BACK TO THE PROCCESES… CHECK OUT THIS SUSPICIOUS PATTERN I FOUND AFTER DOING SOME RESEARCH
+<h2> BACK TO THE PROCCESES… CHECK OUT THIS SUSPICIOUS PATTERN I FOUND AFTER DOING SOME RESEARCH </h2>
 
 
 1. Adding a new user to the Splunk Server is not suspicious in and of itself
