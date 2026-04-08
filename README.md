@@ -18,9 +18,7 @@ When searching the Source IP address on Virus Total this is what we find:
 
 This IP address is a Chinese IP address associate with Phishing attacks:
 
-
-
-Shell.sh, Shell.xsl and shell.zip are all common files used by this IP: 
+**Shell.sh, Shell.xsl and shell.zip are all common files used by this IP:**
 
 
 
