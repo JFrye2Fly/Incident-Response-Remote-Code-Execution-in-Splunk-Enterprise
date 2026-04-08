@@ -27,11 +27,11 @@ xxxhttp://18.219.80.54:8000/en-US/splunkd/__upload/indexing/preview?output_mode=
 
 
  <br>
-***I downloaded the malicious file to my computer and grabbed the Sha256 Hash…***
+ <h3> I downloaded the malicious file to my computer and grabbed the Sha256 Hash…</h3>
 
  <br>
-Let’s see what VirusTotal says about this Hash…
-To my surprise… this file hash is clean: 
+<h2>Let’s see what VirusTotal says about this Hash…</h2>
+<h2>To my surprise… this file hash is clean: </h2>
 
  <br>
 <h2> BACK TO THE PROCCESES… CHECK OUT THIS SUSPICIOUS PATTERN I FOUND AFTER DOING SOME RESEARCH </h2>
