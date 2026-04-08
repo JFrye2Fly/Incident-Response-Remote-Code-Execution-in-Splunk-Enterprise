@@ -19,7 +19,7 @@ xxxhttp://18.219.80.54:8000/en-US/splunkd/__upload/indexing/preview?output_mode=
 
 - **This IP address is a Chinese IP address associate with Phishing attacks**
 
-**Shell.sh, Shell.xsl and shell.zip are all common files used by this IP:**
+- **Shell.sh, Shell.xsl and shell.zip are all common files used by this IP:**
 
 
  <br>
