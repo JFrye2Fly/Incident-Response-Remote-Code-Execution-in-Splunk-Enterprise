@@ -7,7 +7,7 @@ In this Incident Response Scenario it appears that someone made a call to a very
 
 
 ## Body 
-### When examining the traffic fro the Source IP to the Destination IP there is one observable network interaction 
+### When examining the traffic from the Source IP to the Destination IP there is one observable network interaction 
 <br>
 
 xxxhttp://18.219.80.54:8000/en-US/splunkd/__upload/indexing/preview?output_mode=json&props.NO_BINARY_CHECK=1&input.path=shell.xslxxx
