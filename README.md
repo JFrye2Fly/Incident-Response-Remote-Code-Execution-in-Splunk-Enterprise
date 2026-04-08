@@ -3,14 +3,15 @@
 ## Introduction
 
 In this Incident Response Scenario it appears that someone made a call to a very supicious URL: xxxhttp://18.219.80.54:8000/en-US/splunkd/__upload/indexing/preview?output_mode=json&props.NO_BINARY_CHECK=1&input.path=shell.xslxxx
+<br> <br>
 
 
 ## Body 
 When examining the traffic fro the Source IP to the Destination IP there is one observable network interaction 
+<br>
 
 xxxhttp://18.219.80.54:8000/en-US/splunkd/__upload/indexing/preview?output_mode=json&props.NO_BINARY_CHECK=1&input.path=shell.xslxxx
-
-
+ <br>
 
 
 
@@ -21,18 +22,18 @@ When searching the Source IP address on Virus Total this is what we find:
 **Shell.sh, Shell.xsl and shell.zip are all common files used by this IP:**
 
 
-
+ <br>
 <h2> Let’s Check out the Splunk Enterprise Server to see the scope of the Damage by this malicious URL request </h2>
 
 
-
+ <br>
 ***I downloaded the malicious file to my computer and grabbed the Sha256 Hash…***
 
-
+ <br>
 Let’s see what VirusTotal says about this Hash…
 To my surprise… this file hash is clean: 
 
-
+ <br>
 <h2> BACK TO THE PROCCESES… CHECK OUT THIS SUSPICIOUS PATTERN I FOUND AFTER DOING SOME RESEARCH </h2>
 
 
